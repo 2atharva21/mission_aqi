@@ -2408,6 +2408,86 @@
             color: #fbbf24;
         }
         
+        /* Dark Mode for "What is AQI?" Section */
+        [data-theme="dark"] .bg-gradient-to-r.from-blue-50.to-cyan-50,
+        [data-theme="dark"] .bg-gradient-to-br.from-blue-50.to-cyan-50 {
+            background: linear-gradient(to bottom right, rgba(30, 58, 138, 0.2), rgba(21, 94, 117, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-green-50.to-green-100 {
+            background: linear-gradient(to right, rgba(5, 150, 105, 0.2), rgba(16, 185, 129, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-yellow-50.to-yellow-100 {
+            background: linear-gradient(to right, rgba(180, 83, 9, 0.2), rgba(217, 119, 6, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-orange-50.to-orange-100 {
+            background: linear-gradient(to right, rgba(194, 65, 12, 0.2), rgba(234, 88, 12, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-red-50.to-red-100 {
+            background: linear-gradient(to right, rgba(153, 27, 27, 0.2), rgba(185, 28, 28, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-purple-50.to-purple-100 {
+            background: linear-gradient(to right, rgba(88, 28, 135, 0.2), rgba(107, 33, 168, 0.2));
+        }
+        
+        [data-theme="dark"] .bg-gradient-to-r.from-red-50.via-orange-50.to-yellow-50 {
+            background: linear-gradient(to right, rgba(153, 27, 27, 0.15), rgba(194, 65, 12, 0.15), rgba(180, 83, 9, 0.15));
+        }
+        
+        [data-theme="dark"] .border-green-500 {
+            border-color: #10b981;
+        }
+        
+        [data-theme="dark"] .border-yellow-500 {
+            border-color: #eab308;
+        }
+        
+        [data-theme="dark"] .border-orange-500 {
+            border-color: #f97316;
+        }
+        
+        [data-theme="dark"] .border-red-500 {
+            border-color: #ef4444;
+        }
+        
+        [data-theme="dark"] .border-purple-600 {
+            border-color: #9333ea;
+        }
+        
+        [data-theme="dark"] .border-blue-100,
+        [data-theme="dark"] .border-blue-200,
+        [data-theme="dark"] .border-blue-300 {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        [data-theme="dark"] .border-orange-200 {
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+        
+        [data-theme="dark"] .text-green-700 {
+            color: #4ade80;
+        }
+        
+        [data-theme="dark"] .text-yellow-700 {
+            color: #facc15;
+        }
+        
+        [data-theme="dark"] .text-orange-700 {
+            color: #fb923c;
+        }
+        
+        [data-theme="dark"] .text-red-700 {
+            color: #f87171;
+        }
+        
+        [data-theme="dark"] .text-purple-700 {
+            color: #c084fc;
+        }
+        
         /* Dark Mode Footer */
         [data-theme="dark"] footer {
             background: var(--footer-bg);
@@ -2768,6 +2848,192 @@
                     <p class="text-sm text-gray-500 text-center mt-4">
                         We are currently in Phase 1. The sharpest decline is projected for 2027-28.
                     </p>
+                </div>
+            </div>
+            
+            <!-- What is AQI? Simple Explanation Section -->
+            <div class="mt-16 mb-12">
+                <div class="glass-card modern-card depth-card rounded-3xl overflow-hidden shadow-2xl" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 249, 255, 0.98) 100%); border: 2px solid rgba(59, 130, 246, 0.2);">
+                    <div class="p-8 md:p-12">
+                        <!-- Header -->
+                        <div class="text-center mb-10">
+                            <div class="inline-block bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4 shadow-lg">
+                                🌍 Air Quality Basics
+                            </div>
+                            <h2 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600 mb-4">
+                                What is AQI?
+                            </h2>
+                            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                                Air Quality Index (AQI) is like a weather forecast for air pollution. It tells you how clean or polluted your air is.
+                            </p>
+                        </div>
+
+                        <!-- Simple Visual Explanation -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                            <!-- Left: Simple Metaphor -->
+                            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-100">
+                                <div class="text-6xl mb-4 text-center">🌡️</div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">Think of it like a thermometer</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <span class="text-2xl mr-3">📏</span>
+                                        <div>
+                                            <p class="text-gray-700 font-medium">Just like a thermometer measures temperature...</p>
+                                            <p class="text-gray-500 text-sm mt-1">AQI measures how polluted the air is</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="text-2xl mr-3">🔢</span>
+                                        <div>
+                                            <p class="text-gray-700 font-medium">The higher the number, the worse the air quality</p>
+                                            <p class="text-gray-500 text-sm mt-1">Range: 0 (Perfect) to 500+ (Hazardous)</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <span class="text-2xl mr-3">👥</span>
+                                        <div>
+                                            <p class="text-gray-700 font-medium">Helps you make daily decisions</p>
+                                            <p class="text-gray-500 text-sm mt-1">Like whether to exercise outdoors or wear a mask</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Visual Scale -->
+                            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-blue-100">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">The AQI Scale Simplified</h3>
+                                <div class="space-y-3">
+                                    <div class="flex items-center bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-4 border-l-4 border-green-500">
+                                        <div class="text-3xl mr-4">😊</div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-bold text-green-700">0-50: Good</span>
+                                                <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full">SAFE</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1">Perfect! Breathe freely, enjoy outdoors</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-xl p-4 border-l-4 border-yellow-500">
+                                        <div class="text-3xl mr-4">😐</div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-bold text-yellow-700">51-100: Moderate</span>
+                                                <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded-full">OK</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1">Acceptable for most people</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-4 border-l-4 border-orange-500">
+                                        <div class="text-3xl mr-4">😷</div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-bold text-orange-700">101-200: Unhealthy</span>
+                                                <span class="text-xs bg-orange-500 text-white px-2 py-1 rounded-full">CAUTION</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1">Sensitive groups should limit outdoor time</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4 border-l-4 border-red-500">
+                                        <div class="text-3xl mr-4">😨</div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-bold text-red-700">201-300: Very Unhealthy</span>
+                                                <span class="text-xs bg-red-500 text-white px-2 py-1 rounded-full">DANGER</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1">Everyone should avoid outdoor activities</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl p-4 border-l-4 border-purple-600">
+                                        <div class="text-3xl mr-4">☠️</div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-bold text-purple-700">300+: Hazardous</span>
+                                                <span class="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">SEVERE</span>
+                                            </div>
+                                            <p class="text-xs text-gray-600 mt-1">Health emergency! Stay indoors</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- What AQI Measures -->
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 mb-8 border-2 border-blue-200">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">What Does AQI Actually Measure?</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                                <div class="text-center">
+                                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-blue-300">
+                                        <span class="text-3xl">💨</span>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-sm mb-1">PM2.5</h4>
+                                    <p class="text-xs text-gray-600">Fine particles smaller than human hair</p>
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-blue-300">
+                                        <span class="text-3xl">🌫️</span>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-sm mb-1">PM10</h4>
+                                    <p class="text-xs text-gray-600">Dust & smoke particles</p>
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-blue-300">
+                                        <span class="text-3xl">⚗️</span>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-sm mb-1">Ozone</h4>
+                                    <p class="text-xs text-gray-600">Ground-level gas from vehicles</p>
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border-2 border-blue-300">
+                                        <span class="text-3xl">🏭</span>
+                                    </div>
+                                    <h4 class="font-bold text-gray-800 text-sm mb-1">SO₂, NO₂, CO</h4>
+                                    <p class="text-xs text-gray-600">Industrial & vehicle emissions</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delhi Context -->
+                        <div class="bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 rounded-2xl p-8 border-2 border-orange-200">
+                            <div class="flex items-start">
+                                <div class="text-5xl mr-4">📍</div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Why Delhi's AQI Matters</h3>
+                                    <div class="grid md:grid-cols-3 gap-6">
+                                        <div class="bg-white rounded-xl p-5 shadow-md">
+                                            <div class="text-3xl mb-2">🏙️</div>
+                                            <p class="text-sm font-semibold text-gray-700 mb-1">Most Polluted Capital</p>
+                                            <p class="text-xs text-gray-600">Delhi often exceeds 400 AQI in winter</p>
+                                        </div>
+                                        <div class="bg-white rounded-xl p-5 shadow-md">
+                                            <div class="text-3xl mb-2">👨‍👩‍👧‍👦</div>
+                                            <p class="text-sm font-semibold text-gray-700 mb-1">3 Crore People</p>
+                                            <p class="text-xs text-gray-600">Breathing hazardous air daily</p>
+                                        </div>
+                                        <div class="bg-white rounded-xl p-5 shadow-md">
+                                            <div class="text-3xl mb-2">🎯</div>
+                                            <p class="text-sm font-semibold text-gray-700 mb-1">Mission: AQI 20</p>
+                                            <p class="text-xs text-gray-600">Government's target by 2030</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Action Tips -->
+                        <div class="mt-8 text-center">
+                            <div class="inline-block bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-8 py-4 rounded-2xl shadow-xl">
+                                <p class="text-sm font-bold mb-2">💡 Quick Tip</p>
+                                <p class="text-lg">Check AQI every morning like you check the weather!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
