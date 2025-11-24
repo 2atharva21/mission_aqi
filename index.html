@@ -3530,13 +3530,13 @@
                 </div>
 
                 <!-- Budget Card -->
-                <div class="stagger-item shadow-lift glass-card shimmer modern-card depth-card rounded-2xl p-8 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(239, 246, 255, 0.98) 50%, rgba(224, 242, 254, 0.98) 100%); border-top: 5px solid #003366; box-shadow: 0 10px 40px rgba(37, 99, 235, 0.15);">
+                <div class="stagger-item shadow-lift glass-card shimmer modern-card depth-card rounded-2xl p-8 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(239, 246, 255, 0.98) 50%, rgba(224, 242, 254, 0.98) 100%); border-top: 5px solid #003366; box-shadow: 0 10px 40px rgba(37, 99, 235, 0.15); will-change: transform;">
                     <div class="absolute -right-10 top-1/2 w-40 h-40 bg-blue-200 rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
                     <h3 class="text-gray-600 text-xs font-extrabold uppercase tracking-widest mb-2 flex items-center gap-2">
                         <span class="text-lg">💰</span> Total Budget Allocation
                     </h3>
                     <div class="flex items-baseline space-x-2 relative z-10">
-                        <span class="text-6xl font-black text-gray-900 counter" style="text-shadow: 0 2px 10px rgba(0,0,0,0.1);">₹18,500</span>
+                        <span class="text-6xl font-black text-gray-900 counter" data-target="18500" style="text-shadow: 0 2px 10px rgba(0,0,0,0.1); will-change: contents;">₹18,500</span>
                         <span class="text-xl font-bold text-gray-700">Crore</span>
                     </div>
                     <p class="text-xs text-gray-600 mt-3 font-semibold">Invested over 5 Years (2025-2030)</p>
@@ -3577,25 +3577,92 @@
                 </div>
             </div>
 
+            <!-- Health Advisory Banner -->
+            <div class="mb-8 slide-in-down">
+                <div id="health-advisory" class="glass-card modern-card rounded-2xl p-6 border-l-4 border-red-500" style="background: linear-gradient(135deg, rgba(254, 242, 242, 0.98) 0%, rgba(255, 237, 237, 0.98) 100%);">
+                    <div class="flex items-start gap-4">
+                        <div class="text-5xl animate-pulse">🏥</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h3 class="text-xl font-black text-red-700">Real-Time Health Advisory</h3>
+                                <span id="advisory-level" class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">HIGH ALERT</span>
+                            </div>
+                            <p id="advisory-text" class="text-gray-700 text-sm leading-relaxed mb-3">
+                                Air quality is hazardous. Limit outdoor activities, especially for children and elderly. Use N95 masks if going outside.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs bg-white/60 text-gray-700 px-3 py-1 rounded-full font-semibold">😷 Wear Masks</span>
+                                <span class="text-xs bg-white/60 text-gray-700 px-3 py-1 rounded-full font-semibold">🏠 Stay Indoors</span>
+                                <span class="text-xs bg-white/60 text-gray-700 px-3 py-1 rounded-full font-semibold">💨 Use Air Purifiers</span>
+                                <span class="text-xs bg-white/60 text-gray-700 px-3 py-1 rounded-full font-semibold">⚕️ Consult Doctor</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Air Quality Comparison Widget -->
+            <div class="mb-10 slide-in-up">
+                <div class="glass-card modern-card depth-card rounded-2xl p-6" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 249, 255, 0.98) 100%); border: 2px solid rgba(59, 130, 246, 0.2);">
+                    <h3 class="text-xl font-black text-gray-800 mb-4 flex items-center gap-2">
+                        <span class="text-2xl">🌍</span>
+                        Delhi vs World Capitals
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <div class="text-center bg-white/70 rounded-xl p-4 shadow-sm">
+                            <div class="text-2xl mb-1">🇮🇳</div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">Delhi</p>
+                            <p class="text-2xl font-black text-red-600 counter" data-target="352">0</p>
+                            <span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-bold">Very Poor</span>
+                        </div>
+                        <div class="text-center bg-white/70 rounded-xl p-4 shadow-sm">
+                            <div class="text-2xl mb-1">🇨🇳</div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">Beijing</p>
+                            <p class="text-2xl font-black text-orange-600 counter" data-target="156">0</p>
+                            <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full font-bold">Unhealthy</span>
+                        </div>
+                        <div class="text-center bg-white/70 rounded-xl p-4 shadow-sm">
+                            <div class="text-2xl mb-1">🇬🇧</div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">London</p>
+                            <p class="text-2xl font-black text-yellow-600 counter" data-target="45">0</p>
+                            <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full font-bold">Moderate</span>
+                        </div>
+                        <div class="text-center bg-white/70 rounded-xl p-4 shadow-sm">
+                            <div class="text-2xl mb-1">🇸🇬</div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">Singapore</p>
+                            <p class="text-2xl font-black text-green-600 counter" data-target="28">0</p>
+                            <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Good</span>
+                        </div>
+                        <div class="text-center bg-white/70 rounded-xl p-4 shadow-sm">
+                            <div class="text-2xl mb-1">🎯</div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">Our Goal</p>
+                            <p class="text-2xl font-black text-green-700 counter" data-target="20">0</p>
+                            <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Real-time Statistics Dashboard -->
             <div class="mb-10 slide-in-up">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <!-- Stat 1: Pollution Sources -->
-                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 242, 242, 0.95) 100%); border-left: 4px solid #ef4444;">
+                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="showTab('aqi-guide')" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 242, 242, 0.95) 100%); border-left: 4px solid #ef4444; will-change: transform;">
                         <div class="text-4xl mb-2">🚗</div>
                         <div class="text-3xl font-black text-gray-900 counter mb-1" data-target="32">0</div>
                         <p class="text-xs text-gray-600 font-semibold">% Vehicular<br>Emissions</p>
+                        <p class="text-xs text-blue-600 font-bold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">→ Learn More</p>
                     </div>
                     
                     <!-- Stat 2: Health Impact -->
-                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 226, 226, 0.95) 100%); border-left: 4px solid #dc2626;">
+                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 226, 226, 0.95) 100%); border-left: 4px solid #dc2626; will-change: transform;">
                         <div class="text-4xl mb-2">🏥</div>
                         <div class="text-3xl font-black text-gray-900 counter mb-1" data-target="30000">0</div>
                         <p class="text-xs text-gray-600 font-semibold">Annual Deaths<br>from Pollution</p>
                     </div>
                     
                     <!-- Stat 3: Economic Cost -->
-                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 243, 199, 0.95) 100%); border-left: 4px solid #f59e0b;">
+                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(254, 243, 199, 0.95) 100%); border-left: 4px solid #f59e0b; will-change: transform;">
                         <div class="text-4xl mb-2">💸</div>
                         <div class="flex items-baseline justify-center gap-1 mb-1">
                             <span class="text-xs text-gray-600">₹</span>
@@ -3606,10 +3673,78 @@
                     </div>
                     
                     <!-- Stat 4: Green Target -->
-                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(220, 252, 231, 0.95) 100%); border-left: 4px solid #10b981;">
+                    <div class="glass-card modern-card depth-card rounded-xl p-6 text-center hover:scale-105 transition-transform duration-300" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(220, 252, 231, 0.95) 100%); border-left: 4px solid #10b981; will-change: transform;">
                         <div class="text-4xl mb-2">🌱</div>
                         <div class="text-3xl font-black text-gray-900 counter mb-1" data-target="90">0</div>
                         <p class="text-xs text-gray-600 font-semibold">% Reduction<br>Target by 2030</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission Progress Timeline -->
+            <div class="mb-10 slide-in-up">
+                <div class="glass-card modern-card depth-card rounded-2xl p-8" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 250, 251, 0.98) 100%);">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-black text-gray-800 flex items-center gap-2">
+                            <span class="text-3xl">📍</span>
+                            Mission Milestones
+                        </h3>
+                        <span class="text-xs bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-700 px-3 py-1.5 rounded-full font-bold">2025-2030</span>
+                    </div>
+                    <div class="relative">
+                        <!-- Timeline Line -->
+                        <div class="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-yellow-500 to-green-500"></div>
+                        
+                        <!-- Timeline Items -->
+                        <div class="space-y-6 relative">
+                            <!-- 2025 -->
+                            <div class="flex gap-4 items-start">
+                                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10">✓</div>
+                                <div class="flex-1 bg-white rounded-xl p-4 shadow-md border-l-4 border-green-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-lg font-black text-gray-800">2025: Foundation Phase</span>
+                                        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-bold">COMPLETED</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">EV fleet deployment, BS-VI norms, real-time monitoring network</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 2026 -->
+                            <div class="flex gap-4 items-start">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10 animate-pulse">⚡</div>
+                                <div class="flex-1 bg-white rounded-xl p-4 shadow-md border-l-4 border-blue-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-lg font-black text-gray-800">2026: Acceleration Phase</span>
+                                        <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-bold">IN PROGRESS</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Industrial upgrades, metro expansion, massive tree plantation drive</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 2027 -->
+                            <div class="flex gap-4 items-start">
+                                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10">📋</div>
+                                <div class="flex-1 bg-white rounded-xl p-4 shadow-md border-l-4 border-yellow-500">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-lg font-black text-gray-800">2027: Peak Reduction</span>
+                                        <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-bold">PLANNED</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600">Complete vehicle electrification, zero stubble burning target</p>
+                                </div>
+                            </div>
+                            
+                            <!-- 2030 -->
+                            <div class="flex gap-4 items-start">
+                                <div class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg z-10">🎯</div>
+                                <div class="flex-1 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 shadow-md border-l-4 border-green-600">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-lg font-black text-green-800">2030: AQI 20 Achievement</span>
+                                        <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full font-bold">TARGET</span>
+                                    </div>
+                                    <p class="text-sm text-gray-700 font-semibold">🎉 World-class air quality | 90% emission reduction achieved</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4233,6 +4368,52 @@
                                         <div class="text-3xl font-black text-red-700 mb-1">5.8 Years</div>
                                         <div class="text-xs font-bold text-gray-600 uppercase">Life Expectancy Lost</div>
                                         <div class="text-xs text-gray-500 mt-2">Average Delhi Resident</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive AQI Calculator -->
+                <div class="mb-12 slide-in-up">
+                    <div class="glass-card modern-card depth-card rounded-3xl p-8" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(236, 253, 245, 0.98) 100%); border: 2px solid rgba(16, 185, 129, 0.2);">
+                        <div class="text-center mb-6">
+                            <div class="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4 shadow-lg">
+                                🧮 Interactive Tool
+                            </div>
+                            <h3 class="text-3xl font-black text-gray-800 mb-2">AQI Calculator</h3>
+                            <p class="text-gray-600">Enter PM2.5 value to calculate AQI and get health recommendations</p>
+                        </div>
+                        <div class="max-w-2xl mx-auto">
+                            <div class="bg-white rounded-2xl p-6 shadow-lg mb-6">
+                                <label class="block text-sm font-bold text-gray-700 mb-3">PM2.5 Concentration (µg/m³)</label>
+                                <div class="flex gap-4 items-end">
+                                    <div class="flex-1">
+                                        <input type="number" id="pm25-input" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-lg font-bold focus:border-green-500 focus:outline-none transition-colors" placeholder="Enter value (e.g., 35)" min="0" max="500">
+                                    </div>
+                                    <button onclick="calculateAQI()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                                        Calculate
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="aqi-result" class="hidden">
+                                <div class="bg-white rounded-2xl p-6 shadow-lg border-l-4" id="result-card">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div>
+                                            <p class="text-sm text-gray-600 font-semibold mb-1">Calculated AQI</p>
+                                            <p id="calc-aqi" class="text-5xl font-black">--</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p id="calc-category" class="text-sm font-bold px-4 py-2 rounded-full">--</p>
+                                            <p id="calc-emoji" class="text-4xl mt-2">--</p>
+                                        </div>
+                                    </div>
+                                    <div id="calc-health" class="bg-gray-50 rounded-xl p-4 mb-3">
+                                        <p class="text-sm text-gray-700"><span class="font-bold">Health Impact:</span> <span id="health-text">--</span></p>
+                                    </div>
+                                    <div id="calc-action" class="rounded-xl p-4">
+                                        <p class="text-sm text-gray-700"><span class="font-bold">Recommended Action:</span> <span id="action-text">--</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -5232,6 +5413,121 @@
                 <p class="text-gray-600 text-lg">The government can make policies, but clean air needs public participation. Here is how you can contribute to Mission AQI 20.</p>
             </div>
 
+            <!-- Personal Impact Calculator -->
+            <div class="mb-10 slide-in-down">
+                <div class="glass-card modern-card depth-card rounded-3xl p-8" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(236, 253, 245, 0.98) 100%); border: 2px solid rgba(16, 185, 129, 0.2);">
+                    <div class="text-center mb-6">
+                        <div class="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4 shadow-lg">
+                            📊 Track Your Impact
+                        </div>
+                        <h3 class="text-3xl font-black text-gray-800 mb-2">Personal Carbon Footprint Calculator</h3>
+                        <p class="text-gray-600">See how your daily choices affect Delhi's air quality</p>
+                    </div>
+                    
+                    <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Daily Car Usage (km)</label>
+                            <input type="number" id="car-km" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="e.g., 20" min="0">
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Electricity Usage (kWh/month)</label>
+                            <input type="number" id="electricity" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="e.g., 300" min="0">
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Waste Generated (kg/week)</label>
+                            <input type="number" id="waste" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="e.g., 5" min="0">
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-md">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Public Transport Usage (%)</label>
+                            <input type="number" id="public-transport" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none" placeholder="e.g., 50" min="0" max="100">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="calculateImpact()" class="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-10 py-3 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                            Calculate My Impact
+                        </button>
+                    </div>
+                    
+                    <div id="impact-result" class="hidden mt-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-lg">
+                            <h4 class="text-xl font-black text-gray-800 mb-4 text-center">Your Monthly Environmental Impact</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 text-center">
+                                    <div class="text-3xl mb-2">💨</div>
+                                    <div class="text-3xl font-black text-red-600" id="co2-emissions">--</div>
+                                    <p class="text-xs text-gray-600 mt-1">kg CO₂ Emissions</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 text-center">
+                                    <div class="text-3xl mb-2">🌳</div>
+                                    <div class="text-3xl font-black text-orange-600" id="trees-needed">--</div>
+                                    <p class="text-xs text-gray-600 mt-1">Trees to Offset</p>
+                                </div>
+                                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+                                    <div class="text-3xl mb-2">⭐</div>
+                                    <div class="text-2xl font-black text-green-600" id="eco-score">--</div>
+                                    <p class="text-xs text-gray-600 mt-1">Eco Score</p>
+                                </div>
+                            </div>
+                            <div id="recommendations" class="mt-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4">
+                                <h5 class="font-bold text-green-800 mb-2">🌱 Personalized Recommendations:</h5>
+                                <ul id="rec-list" class="text-sm text-gray-700 space-y-1">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gamification Progress Tracker -->
+            <div class="mb-10">
+                <div class="glass-card modern-card depth-card rounded-2xl p-8" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 249, 255, 0.98) 100%);">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-2xl font-black text-gray-800 flex items-center gap-2">
+                                <span class="text-3xl">🏆</span>
+                                Your Green Warrior Level
+                            </h3>
+                            <p class="text-sm text-gray-600">Complete actions to level up and earn badges</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-5xl font-black text-green-600" id="user-level">1</div>
+                            <p class="text-xs text-gray-600 font-semibold">LEVEL</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-semibold text-gray-700">Progress to Level 2</span>
+                            <span class="text-sm font-bold text-green-600" id="xp-display">0 / 100 XP</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-4 rounded-full overflow-hidden">
+                            <div id="xp-bar" class="bg-gradient-to-r from-green-500 to-emerald-600 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white rounded-xl p-4 shadow-md text-center">
+                            <div class="text-4xl mb-2" id="badge1">🔒</div>
+                            <p class="text-sm font-bold text-gray-800">Metro Master</p>
+                            <p class="text-xs text-gray-600">Use metro 10 times</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-md text-center">
+                            <div class="text-4xl mb-2" id="badge2">🔒</div>
+                            <p class="text-sm font-bold text-gray-800">Green Commuter</p>
+                            <p class="text-xs text-gray-600">Carpool 5 times</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-4 shadow-md text-center">
+                            <div class="text-4xl mb-2" id="badge3">🔒</div>
+                            <p class="text-sm font-bold text-gray-800">Air Guardian</p>
+                            <p class="text-xs text-gray-600">Report 3 violations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Card 1 -->
                 <div class="slide-in-left shadow-lift glass-card modern-card depth-card border-l-4 border-gov-blue p-8 rounded-2xl" style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(239, 246, 255, 0.9) 100%);">
@@ -5502,14 +5798,57 @@
 
         // Calculate PM2.5 from AQI (reverse calculation)
         function calculatePM25FromAQI(aqi) {
-            if (aqi <= 50) return Math.round(aqi / 1.67);
-            if (aqi <= 100) return Math.round(30 + (aqi - 50) / 1.67);
-            if (aqi <= 200) return Math.round(60 + (aqi - 100) / 3.33);
-            if (aqi <= 300) return Math.round(90 + (aqi - 200) / 3.33);
-            if (aqi <= 400) return Math.round(120 + (aqi - 300) / 1.54);
-            return Math.round(250 + (aqi - 400) / 0.4);
+            if (aqi <= 50) return Math.round(aqi * 12 / 50);
+            if (aqi <= 100) return Math.round(12 + ((aqi - 50) * (35.4 - 12) / 50));
+            if (aqi <= 200) return Math.round(35.4 + ((aqi - 100) * (55.4 - 35.4) / 100));
+            return Math.round(55.4 + ((aqi - 200) * (150 - 55.4) / 100));
+        }
+        
+        // Update Health Advisory dynamically
+        function updateHealthAdvisory(aqi, category) {
+            const advisoryEl = document.getElementById('health-advisory');
+            const advisoryLevelEl = document.getElementById('advisory-level');
+            const advisoryTextEl = document.getElementById('advisory-text');
+            
+            if (!advisoryEl || !advisoryLevelEl || !advisoryTextEl) return;
+            
+            let level, text, bgColor, borderColor;
+            
+            if (aqi <= 50) {
+                level = 'NO ALERT';
+                text = 'Air quality is excellent. Perfect day for outdoor activities, exercise, and recreation. No health concerns.';
+                bgColor = 'rgba(236, 253, 245, 0.98)';
+                borderColor = '#10b981';
+            } else if (aqi <= 100) {
+                level = 'LOW ALERT';
+                text = 'Air quality is acceptable. Most people can enjoy outdoor activities. Sensitive individuals should monitor symptoms.';
+                bgColor = 'rgba(254, 249, 195, 0.98)';
+                borderColor = '#eab308';
+            } else if (aqi <= 200) {
+                level = 'MODERATE ALERT';
+                text = 'Sensitive groups may experience respiratory symptoms. Consider reducing prolonged outdoor exertion. Children and elderly should take breaks.';
+                bgColor = 'rgba(254, 243, 199, 0.98)';
+                borderColor = '#f59e0b';
+            } else if (aqi <= 300) {
+                level = 'HIGH ALERT';
+                text = 'Everyone may experience health effects. Limit outdoor activities, wear N95 masks if going outside. Stay indoors when possible.';
+                bgColor = 'rgba(254, 242, 242, 0.98)';
+                borderColor = '#ef4444';
+            } else {
+                level = 'EMERGENCY';
+                text = 'Health emergency declared! Air quality is hazardous. Avoid all outdoor activities. Keep windows closed, use air purifiers, seek medical attention if experiencing symptoms.';
+                bgColor = 'rgba(254, 226, 226, 0.98)';
+                borderColor = '#dc2626';
+            }
+            
+            advisoryEl.style.background = `linear-gradient(135deg, ${bgColor} 0%, rgba(255, 237, 237, 0.98) 100%)`;
+            advisoryEl.style.borderLeftColor = borderColor;
+            advisoryLevelEl.textContent = level;
+            advisoryLevelEl.style.backgroundColor = borderColor;
+            advisoryTextEl.textContent = text;
         }
 
+        // Calculate PM2.5 from AQI (reverse calculation)
         // Get AQI Category and Color
         function getAQICategory(aqi) {
             if (aqi <= 50) return { category: 'GOOD', color: '#16a34a', bgColor: 'rgba(22, 163, 74, 0.1)' };
@@ -5568,6 +5907,9 @@
                 aqiCard.style.background = `linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, ${aqiCategory.bgColor} 100%)`;
                 aqiCard.style.borderTopColor = aqiCategory.color;
             }
+            
+            // Update Health Advisory
+            updateHealthAdvisory(aqi, aqiCategory);
             
             // Update live data indicator
             const liveIndicator = document.getElementById('live-status-badge');
@@ -6321,6 +6663,203 @@
             updateThemeIcons(theme);
         }
         
+        // Personal Impact Calculator
+        function calculateImpact() {
+            const carKm = parseFloat(document.getElementById('car-km').value) || 0;
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const waste = parseFloat(document.getElementById('waste').value) || 0;
+            const publicTransport = parseFloat(document.getElementById('public-transport').value) || 0;
+            
+            // Calculate emissions (simplified formulas)
+            const carEmissions = carKm * 30 * 0.21; // 0.21 kg CO2 per km
+            const electricityEmissions = electricity * 0.82; // 0.82 kg CO2 per kWh (India grid)
+            const wasteEmissions = waste * 4 * 0.5; // 0.5 kg CO2 per kg waste
+            
+            const totalEmissions = carEmissions + electricityEmissions + wasteEmissions;
+            const adjustedEmissions = totalEmissions * (1 - (publicTransport / 200)); // Adjust for public transport
+            
+            const treesNeeded = Math.ceil(adjustedEmissions / 21); // One tree absorbs ~21 kg CO2/month
+            
+            // Calculate eco score (0-100)
+            let ecoScore = 100 - Math.min(100, Math.floor(adjustedEmissions / 10));
+            if (publicTransport > 50) ecoScore += 10;
+            if (carKm < 10) ecoScore += 10;
+            ecoScore = Math.min(100, ecoScore);
+            
+            // Display results
+            document.getElementById('impact-result').classList.remove('hidden');
+            document.getElementById('co2-emissions').textContent = Math.round(adjustedEmissions);
+            document.getElementById('trees-needed').textContent = treesNeeded;
+            document.getElementById('eco-score').textContent = ecoScore + '/100';
+            
+            // Generate recommendations
+            const recList = document.getElementById('rec-list');
+            recList.innerHTML = '';
+            
+            if (carKm > 15) {
+                recList.innerHTML += '<li>✅ Consider using metro/bus for daily commute - save 60% emissions</li>';
+            }
+            if (electricity > 300) {
+                recList.innerHTML += '<li>✅ Switch to LED bulbs and use AC at 24°C - save 30% electricity</li>';
+            }
+            if (waste > 5) {
+                recList.innerHTML += '<li>✅ Start composting organic waste - reduce landfill emissions by 40%</li>';
+            }
+            if (publicTransport < 30) {
+                recList.innerHTML += '<li>✅ Use public transport at least 3 days/week - major impact!</li>';
+            }
+            if (ecoScore > 70) {
+                recList.innerHTML += '<li>🌟 Great job! You are already making a positive impact on Delhi air!</li>';
+            }
+            
+            // Award XP
+            awardXP(20);
+            
+            // Animate result
+            const resultDiv = document.getElementById('impact-result');
+            resultDiv.style.opacity = '0';
+            resultDiv.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                resultDiv.style.transition = 'all 0.5s ease';
+                resultDiv.style.opacity = '1';
+                resultDiv.style.transform = 'translateY(0)';
+            }, 10);
+        }
+        
+        // Gamification System
+        let userXP = parseInt(localStorage.getItem('userXP')) || 0;
+        let userLevel = parseInt(localStorage.getItem('userLevel')) || 1;
+        
+        function awardXP(points) {
+            userXP += points;
+            localStorage.setItem('userXP', userXP);
+            
+            const xpForNextLevel = userLevel * 100;
+            
+            if (userXP >= xpForNextLevel) {
+                userLevel++;
+                userXP = userXP - xpForNextLevel;
+                localStorage.setItem('userLevel', userLevel);
+                
+                // Show level up notification
+                alert(`🎉 Congratulations! You've reached Level ${userLevel}!`);
+            }
+            
+            updateLevelDisplay();
+        }
+        
+        function updateLevelDisplay() {
+            const xpForNextLevel = userLevel * 100;
+            const xpProgress = (userXP / xpForNextLevel) * 100;
+            
+            document.getElementById('user-level').textContent = userLevel;
+            document.getElementById('xp-display').textContent = `${userXP} / ${xpForNextLevel} XP`;
+            document.getElementById('xp-bar').style.width = `${xpProgress}%`;
+            
+            // Unlock badges
+            if (userLevel >= 2) document.getElementById('badge1').textContent = '🚇';
+            if (userLevel >= 3) document.getElementById('badge2').textContent = '🚗';
+            if (userLevel >= 4) document.getElementById('badge3').textContent = '🛡️';
+        }
+        
+        // Initialize gamification
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('user-level')) {
+                updateLevelDisplay();
+            }
+        });
+
+        // AQI Calculator Function
+        function calculateAQI() {
+            const pm25 = parseFloat(document.getElementById('pm25-input').value);
+            
+            if (isNaN(pm25) || pm25 < 0 || pm25 > 500) {
+                alert('Please enter a valid PM2.5 value between 0 and 500');
+                return;
+            }
+            
+            let aqi, category, emoji, health, action, borderColor, bgColor, badgeColor;
+            
+            // Calculate AQI from PM2.5 using US EPA formula
+            if (pm25 <= 12.0) {
+                aqi = Math.round((50 / 12.0) * pm25);
+                category = 'GOOD';
+                emoji = '😊';
+                health = 'Air quality is satisfactory with minimal health risk';
+                action = 'Ideal for all outdoor activities. No restrictions';
+                borderColor = 'border-green-500';
+                bgColor = 'bg-green-50';
+                badgeColor = 'bg-green-600 text-white';
+            } else if (pm25 <= 35.4) {
+                aqi = Math.round(50 + ((100 - 50) / (35.4 - 12.0)) * (pm25 - 12.0));
+                category = 'SATISFACTORY';
+                emoji = '🙂';
+                health = 'Minor breathing discomfort for sensitive individuals';
+                action = 'Generally safe. Sensitive people should monitor symptoms';
+                borderColor = 'border-lime-500';
+                bgColor = 'bg-lime-50';
+                badgeColor = 'bg-lime-600 text-white';
+            } else if (pm25 <= 55.4) {
+                aqi = Math.round(100 + ((150 - 100) / (55.4 - 35.4)) * (pm25 - 35.4));
+                category = 'MODERATE';
+                emoji = '😐';
+                health = 'Breathing discomfort for people with lung disease';
+                action = 'Consider reducing prolonged outdoor exertion';
+                borderColor = 'border-yellow-500';
+                bgColor = 'bg-yellow-50';
+                badgeColor = 'bg-yellow-600 text-white';
+            } else if (pm25 <= 150.4) {
+                aqi = Math.round(150 + ((200 - 150) / (150.4 - 55.4)) * (pm25 - 55.4));
+                category = 'POOR';
+                emoji = '😷';
+                health = 'Breathing difficulty for most people on prolonged exposure';
+                action = 'Limit outdoor activities. Wear masks outdoors';
+                borderColor = 'border-orange-500';
+                bgColor = 'bg-orange-50';
+                badgeColor = 'bg-orange-600 text-white';
+            } else if (pm25 <= 250.4) {
+                aqi = Math.round(200 + ((300 - 200) / (250.4 - 150.4)) * (pm25 - 150.4));
+                category = 'VERY POOR';
+                emoji = '😨';
+                health = 'Respiratory illness on prolonged exposure. Serious health effects';
+                action = 'Avoid outdoor activities. Stay indoors with air purifiers';
+                borderColor = 'border-red-500';
+                bgColor = 'bg-red-50';
+                badgeColor = 'bg-red-600 text-white';
+            } else {
+                aqi = Math.round(300 + ((500 - 300) / (500.4 - 250.4)) * (pm25 - 250.4));
+                category = 'SEVERE';
+                emoji = '☠️';
+                health = 'Affects healthy people and seriously impacts those with existing diseases';
+                action = 'Emergency conditions. Everyone should avoid all outdoor exertion';
+                borderColor = 'border-red-700';
+                bgColor = 'bg-red-100';
+                badgeColor = 'bg-red-700 text-white';
+            }
+            
+            // Display results
+            document.getElementById('aqi-result').classList.remove('hidden');
+            document.getElementById('calc-aqi').textContent = aqi;
+            document.getElementById('calc-category').textContent = category;
+            document.getElementById('calc-category').className = `text-sm font-bold px-4 py-2 rounded-full ${badgeColor}`;
+            document.getElementById('calc-emoji').textContent = emoji;
+            document.getElementById('health-text').textContent = health;
+            document.getElementById('action-text').textContent = action;
+            document.getElementById('result-card').className = `bg-white rounded-2xl p-6 shadow-lg border-l-4 ${borderColor}`;
+            document.getElementById('calc-health').className = `rounded-xl p-4 mb-3 ${bgColor}`;
+            document.getElementById('calc-action').className = `rounded-xl p-4 ${bgColor}`;
+            
+            // Animate result
+            const resultCard = document.getElementById('aqi-result');
+            resultCard.style.opacity = '0';
+            resultCard.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                resultCard.style.transition = 'all 0.5s ease';
+                resultCard.style.opacity = '1';
+                resultCard.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
         // Initialize theme before DOM loads
         initializeTheme();
         
@@ -6357,34 +6896,45 @@
             
             // Counter animation for AQI statistics
             function animateCounter(element) {
-                // Extract numeric value from text (remove ₹, commas, and other non-numeric characters)
-                const textContent = element.textContent || element.getAttribute('data-target') || '0';
-                const target = parseInt(textContent.replace(/[^0-9]/g, '')) || 0;
+                // Fast path: use data-target if available
+                const dataTarget = element.getAttribute('data-target');
+                const target = dataTarget ? parseInt(dataTarget, 10) : parseInt(element.textContent.replace(/[^0-9]/g, ''), 10) || 0;
                 
-                // Check if element contains currency symbol
-                const hasCurrency = element.textContent.includes('₹');
+                // Check if element contains currency symbol (cache this check)
+                const originalText = element.textContent;
+                const hasCurrency = originalText.includes('₹');
                 const prefix = hasCurrency ? '₹' : '';
+                const hasSuffix = originalText.includes('+');
+                const suffix = hasSuffix ? '+' : '';
                 
-                const duration = 2000; // 2 seconds
-                const increment = target / (duration / 16); // 60fps
-                let current = 0;
+                // Faster animation: 1 second instead of 2
+                const duration = 1000;
+                const startTime = performance.now();
                 
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        const value = Math.floor(current);
-                        // Format with commas for thousands
-                        element.textContent = prefix + value.toLocaleString('en-IN');
+                const updateCounter = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function for smooth animation (easeOutQuad)
+                    const easeOutQuad = progress * (2 - progress);
+                    const current = Math.floor(target * easeOutQuad);
+                    
+                    // Format with commas for thousands (only when needed)
+                    if (target > 999) {
+                        element.textContent = prefix + current.toLocaleString('en-IN') + suffix;
                     } else {
-                        element.textContent = prefix + target.toLocaleString('en-IN');
+                        element.textContent = prefix + current + suffix;
                     }
                     
-                    if (current < target) {
+                    if (progress < 1) {
                         requestAnimationFrame(updateCounter);
+                    } else {
+                        // Ensure final value is exact
+                        element.textContent = prefix + target.toLocaleString('en-IN') + suffix;
                     }
                 };
                 
-                updateCounter();
+                requestAnimationFrame(updateCounter);
             }
             
             // Intersection Observer for counter animation on scroll
@@ -6402,11 +6952,19 @@
                 });
             }, observerOptions);
             
-            // Observe all counter elements
-            document.querySelectorAll('.counter').forEach(counter => {
+            // Observe all counter elements with optimized priority loading
+            document.querySelectorAll('.counter').forEach((counter, index) => {
                 // For dashboard counters, animate immediately without waiting for scroll
                 if (counter.closest('#dashboard')) {
-                    animateCounter(counter);
+                    // Prioritize first 3 counters for immediate animation
+                    // Defer statistics cards slightly for smoother page load
+                    if (index < 3) {
+                        // Animate top 3 counters immediately
+                        animateCounter(counter);
+                    } else {
+                        // Defer statistics cards by 50ms
+                        setTimeout(() => animateCounter(counter), 50);
+                    }
                     counter.classList.add('counted');
                 } else {
                     // For other sections, use intersection observer
