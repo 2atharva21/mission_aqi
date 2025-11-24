@@ -82,19 +82,19 @@
         }
         
         [data-theme="dark"] {
-            --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            --bg-secondary: rgba(30, 41, 59, 0.95);
-            --text-primary: #f8fafc;
+            --bg-primary: linear-gradient(135deg, #050a14 0%, #0a1628 50%, #0f1f3a 100%);
+            --bg-secondary: rgba(10, 22, 40, 0.98);
+            --text-primary: #e2e8f0;
             --text-secondary: #cbd5e1;
             --text-tertiary: #94a3b8;
             --text-accent: #60a5fa;
-            --card-bg: rgba(30, 41, 59, 0.95);
-            --card-border: rgba(148, 163, 184, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --input-bg: #1e293b;
-            --input-border: #475569;
-            --nav-bg: rgba(15, 23, 42, 0.95);
-            --footer-bg: #0f172a;
+            --card-bg: rgba(15, 25, 45, 0.95);
+            --card-border: rgba(96, 165, 250, 0.15);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --input-bg: #0f1928;
+            --input-border: #1e3a5f;
+            --nav-bg: rgba(8, 15, 28, 0.98);
+            --footer-bg: #050a14;
             --footer-text: #cbd5e1;
         }
         
@@ -202,6 +202,25 @@
         
         .tab-content {
             contain: content;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                       transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tab-content:not(.hidden) {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .tab-content.slide-out-left {
+            transform: translateX(-30px);
+            opacity: 0;
+        }
+        
+        .tab-content.slide-out-right {
+            transform: translateX(30px);
+            opacity: 0;
         }
         
         /* Optimize animations */
@@ -230,6 +249,22 @@
         }
         
         [data-theme="dark"] body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15), transparent 35%),
+                radial-gradient(circle at 80% 70%, rgba(34, 197, 94, 0.12), transparent 35%),
+                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08), transparent 45%);
+            pointer-events: none;
+            z-index: 0;
+            animation: floatBackground 30s ease-in-out infinite alternate;
+        }
+        
+        [data-theme="dark"] body::after {
             background: 
                 radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%);
@@ -313,12 +348,6 @@
         
         .tab-btn.active::after {
             transform: translateX(-50%) scaleX(1);
-        }
-        
-        .tab-btn:hover {
-            background: rgba(0, 51, 102, 0.06);
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 51, 102, 0.1);
         }
 
         .chart-container {
@@ -687,12 +716,6 @@
             background: linear-gradient(180deg, #001122, #166534, #a16207);
             transform: scaleY(0.95);
         }
-        
-        /* Firefox Scrollbar */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #003366 #f1f5f9;
-        }
 
         /* Glassmorphism Cards */
         .glass-card {
@@ -733,8 +756,11 @@
         }
         
         [data-theme="dark"] .glass-card {
-            background: rgba(30, 41, 59, 0.85);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                       0 0 0 1px rgba(96, 165, 250, 0.1),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         /* Floating Animation */
@@ -787,9 +813,9 @@
             .grid-cols-2,
             .grid-cols-3,
             .grid-cols-4,
-            .md\\:grid-cols-2,
-            .md\\:grid-cols-3,
-            .lg\\:grid-cols-2 {
+            [class*="md:grid-cols-2"],
+            [class*="md:grid-cols-3"],
+            [class*="lg:grid-cols-2"] {
                 grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
             }
             
@@ -935,8 +961,9 @@
             }
             
             [data-theme="dark"] .mobile-nav {
-                background: rgba(15, 23, 42, 0.95);
-                border-top-color: rgba(148, 163, 184, 0.2);
+                background: rgba(10, 18, 35, 0.98);
+                border-top-color: rgba(96, 165, 250, 0.25);
+                box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
             }
             
             .mobile-nav.hidden {
@@ -948,65 +975,123 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 4px;
-                padding: 8px 12px;
+                padding: 10px 12px;
                 color: #64748b;
                 text-decoration: none;
                 font-size: 0.75rem;
                 font-weight: 500;
-                transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
                 cursor: pointer;
                 position: relative;
-                min-width: 60px;
-                border-radius: 12px;
+                min-width: 64px;
+                border-radius: 18px;
                 touch-action: manipulation;
                 -webkit-tap-highlight-color: transparent;
+                overflow: hidden;
+            }
+            
+            /* Ripple effect on tap */
+            .mobile-nav-item::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: radial-gradient(circle, rgba(0, 51, 102, 0.2) 0%, transparent 70%);
+                border-radius: 50%;
+                opacity: 0;
+                transition: transform 0.5s, opacity 0.5s;
+                pointer-events: none;
+            }
+            
+            .mobile-nav-item:active::after {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 1;
+                transition: transform 0s, opacity 0s;
             }
             
             .mobile-nav-item::before {
                 content: '';
                 position: absolute;
-                top: 0;
+                top: -2px;
                 left: 50%;
                 width: 0;
                 height: 3px;
                 background: linear-gradient(90deg, #003366, #16a34a);
                 border-radius: 0 0 3px 3px;
                 transform: translateX(-50%);
-                transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                opacity: 0;
             }
             
             .mobile-nav-item.active {
-                color: #003366;
-                background: linear-gradient(135deg, rgba(0, 51, 102, 0.12), rgba(22, 163, 74, 0.12));
-                box-shadow: 0 2px 8px rgba(0, 51, 102, 0.15);
-                transform: translateY(-2px);
+                color: #ffffff;
+                background: linear-gradient(135deg, #003366 0%, #16a34a 100%);
+                box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3),
+                           0 2px 6px rgba(22, 163, 74, 0.2),
+                           inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                transform: translateY(-4px) scale(1.05);
             }
             
             [data-theme="dark"] .mobile-nav-item {
                 color: #94a3b8;
             }
             
+            [data-theme="dark"] .mobile-nav-item:hover {
+                background: rgba(59, 130, 246, 0.12);
+                color: #bfdbfe;
+            }
+            
             [data-theme="dark"] .mobile-nav-item.active {
-                color: #60a5fa;
-                background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 197, 94, 0.2));
-                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+                color: #ffffff;
+                background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 50%, #10b981 100%);
+                box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5),
+                           0 2px 8px rgba(16, 185, 129, 0.4),
+                           inset 0 1px 0 rgba(255, 255, 255, 0.25);
             }
             
             .mobile-nav-item.active::before {
                 width: 32px;
+                opacity: 1;
             }
             
             .mobile-nav-item:active {
-                transform: scale(0.95);
+                transform: scale(0.92);
+                transition: transform 0.1s;
             }
             
             .mobile-nav-icon {
                 font-size: 1.5rem;
-                transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0));
+            }
+            
+            @keyframes navIconBounce {
+                0% { transform: translateY(0) scale(1); }
+                40% { transform: translateY(-8px) scale(1.25); }
+                60% { transform: translateY(-4px) scale(1.1); }
+                80% { transform: translateY(-5px) scale(1.15); }
+                100% { transform: translateY(-3px) scale(1.15); }
             }
             
             .mobile-nav-item.active .mobile-nav-icon {
+                animation: navIconBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+                filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            }
+            
+            .mobile-nav-item span {
+                font-size: 0.7rem;
+                font-weight: 600;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0.8;
+            }
+            
+            .mobile-nav-item.active span {
+                opacity: 1;
                 transform: translateY(-2px);
+                font-weight: 700;
             }
             
             /* Touch-friendly spacing */
@@ -1039,10 +1124,9 @@
             /* Improved scrolling */
             section {
                 scroll-snap-align: start;
+                scroll-margin-top: 80px;
                 padding-bottom: 24px;
             }
-            
-            /* Improved typography for mobile */
             p {
                 font-size: 0.95rem !important;
                 line-height: 1.6 !important;
@@ -1095,11 +1179,6 @@
             
             .p-8 {
                 padding: 1.5rem !important;
-            }
-            
-            /* Scroll snap for sections */
-            section {
-                scroll-margin-top: 80px;
             }
             
             /* Pull to refresh indicator */
@@ -1186,25 +1265,30 @@
             
             /* Enhanced bottom nav with island design */
             .bottom-nav {
-                background: rgba(255, 255, 255, 0.8) !important;
-                backdrop-filter: blur(20px) saturate(180%);
-                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                background: rgba(255, 255, 255, 0.95) !important;
+                backdrop-filter: blur(30px) saturate(180%);
+                -webkit-backdrop-filter: blur(30px) saturate(180%);
                 margin: 0 12px 12px;
-                border-radius: 24px;
-                padding: 8px;
+                border-radius: 28px;
+                padding: 6px;
                 left: 0;
                 right: 0;
                 width: auto;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12),
-                           0 2px 8px rgba(0, 0, 0, 0.08),
-                           inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15),
+                           0 4px 12px rgba(0, 0, 0, 0.1),
+                           inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                           0 0 0 1px rgba(0, 0, 0, 0.04);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             }
             
             [data-theme="dark"] .bottom-nav {
-                background: rgba(15, 23, 42, 0.8) !important;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
-                           0 2px 8px rgba(0, 0, 0, 0.2),
-                           inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                background: rgba(10, 18, 35, 0.95) !important;
+                backdrop-filter: blur(40px) saturate(200%);
+                border: 1px solid rgba(96, 165, 250, 0.25);
+                box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.7),
+                           0 -4px 20px rgba(37, 99, 235, 0.2),
+                           inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                           0 0 0 1px rgba(96, 165, 250, 0.15);
             }
             
             /* Page transition overlay */
@@ -1214,16 +1298,31 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: var(--bg-primary);
+                background: linear-gradient(135deg, 
+                    rgba(0, 51, 102, 0.95) 0%, 
+                    rgba(22, 163, 74, 0.95) 100%);
                 z-index: 9998;
                 opacity: 0;
                 pointer-events: none;
-                transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             
             .page-transition.active {
                 opacity: 1;
                 pointer-events: all;
+            }
+            
+            .page-transition::after {
+                content: '';
+                width: 40px;
+                height: 40px;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                border-top-color: white;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
             }
         
         
@@ -1240,12 +1339,6 @@
             button:active, .btn:active, .tab-button:active {
                 transform: scale(0.98);
             }
-        }
-        
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
         }
         
         /* Vote Button Styles */
@@ -1726,6 +1819,12 @@
             cursor: pointer;
             transition: background 0.1s;
             gap: 16px;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: inherit;
         }
         
         .youtube-result-item:hover {
@@ -2540,15 +2639,20 @@
         /* Dark Mode Tab Button Styles */
         [data-theme="dark"] .tab-btn {
             color: var(--text-primary);
+            border: 1px solid rgba(148, 163, 184, 0.1);
         }
         
         [data-theme="dark"] .tab-btn.active {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(34, 197, 94, 0.1));
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(34, 197, 94, 0.15));
             color: #60a5fa;
+            border-color: rgba(96, 165, 250, 0.4);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
         [data-theme="dark"] .tab-btn:hover {
-            background: rgba(59, 130, 246, 0.08);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(96, 165, 250, 0.3);
         }
         
         /* Dark Mode Accordion Styles */
@@ -2952,10 +3056,6 @@
             border-color: rgba(59, 130, 246, 0.3);
         }
         
-        [data-theme="dark"] .border-orange-200 {
-            border-color: rgba(249, 115, 22, 0.3);
-        }
-        
         [data-theme="dark"] .text-green-700 {
             color: #4ade80;
         }
@@ -3006,11 +3106,6 @@
             background: rgba(15, 23, 42, 0.95);
             border-bottom-color: rgba(34, 197, 94, 0.3);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Dark Mode Top Bar */
-        [data-theme="dark"] .bg-gov-darkBlue {
-            background: #0c1222;
         }
         
         /* Dark Mode Emblem */
@@ -3157,30 +3252,30 @@
                         
                         <!-- Quick Suggestions -->
                         <div id="quickSuggestions" class="youtube-results-list">
-                            <div class="youtube-result-item" onclick="quickSearch('current AQI')">
+                            <button class="youtube-result-item" onclick="quickSearch('current AQI')" aria-label="Search for current AQI status">
                                 <svg viewBox="0 0 24 24" class="youtube-result-icon">
                                     <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12.5,7H11v6l5.25,3.15l0.75-1.23l-4.5-2.67V7z" fill="currentColor"/>
                                 </svg>
                                 <span class="youtube-result-text">Current AQI Status</span>
-                            </div>
-                            <div class="youtube-result-item" onclick="quickSearch('EV policy')">
+                            </button>
+                            <button class="youtube-result-item" onclick="quickSearch('EV policy')" aria-label="Search for electric vehicle policy">
                                 <svg viewBox="0 0 24 24" class="youtube-result-icon">
                                     <path d="M18.92,5.01C18.72,4.42,18.16,4,17.5,4h-11C5.84,4,5.29,4.42,5.08,5.01L3,11v8c0,0.55,0.45,1,1,1h1c0.55,0,1-0.45,1-1v-1h12 v1c0,0.55,0.45,1,1,1h1c0.55,0,1-0.45,1-1v-8L18.92,5.01z M6.5,15C5.67,15,5,14.33,5,13.5S5.67,12,6.5,12S8,12.67,8,13.5 S7.33,15,6.5,15z M17.5,15c-0.83,0-1.5-0.67-1.5-1.5s0.67-1.5,1.5-1.5s1.5,0.67,1.5,1.5S18.33,15,17.5,15z M5,10l1.5-4.5h11L19,10 H5z" fill="currentColor"/>
                                 </svg>
                                 <span class="youtube-result-text">Electric Vehicle Policy</span>
-                            </div>
-                            <div class="youtube-result-item" onclick="quickSearch('air quality guide')">
+                            </button>
+                            <button class="youtube-result-item" onclick="quickSearch('air quality guide')" aria-label="Search for air quality guide">
                                 <svg viewBox="0 0 24 24" class="youtube-result-icon">
                                     <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M13,17h-2v-6h2V17z M13,9h-2V7h2V9z" fill="currentColor"/>
                                 </svg>
                                 <span class="youtube-result-text">Air Quality Guide</span>
-                            </div>
-                            <div class="youtube-result-item" onclick="quickSearch('citizen action')">
+                            </button>
+                            <button class="youtube-result-item" onclick="quickSearch('citizen action')" aria-label="Search for citizen action">
                                 <svg viewBox="0 0 24 24" class="youtube-result-icon">
                                     <path d="M16,11c1.66,0,2.99-1.34,2.99-3S17.66,5,16,5c-1.66,0-3,1.34-3,3S14.34,11,16,11z M8,11c1.66,0,2.99-1.34,2.99-3 S9.66,5,8,5C6.34,5,5,6.34,5,8S6.34,11,8,11z M8,13c-2.33,0-7,1.17-7,3.5V19h14v-2.5C15,14.17,10.33,13,8,13z M16,13 c-0.29,0-0.62,0.02-0.97,0.05c1.16,0.84,1.97,1.97,1.97,3.45V19h6v-2.5C23,14.17,18.33,13,16,13z" fill="currentColor"/>
                                 </svg>
                                 <span class="youtube-result-text">How to Participate</span>
-                            </div>
+                            </button>
                         </div>
                         
                         <!-- No Results -->
@@ -3225,8 +3320,8 @@
                         <span class="hidden sm:inline">Plan</span>
                     </button>
                     <button onclick="showTab('projections')" class="tab-btn text-sm font-semibold flex items-center text-gray-700 hover:text-gov-blue whitespace-nowrap">
-                        <span class="tab-icon">📈</span>
-                        <span class="hidden sm:inline">Data</span>
+                        <span class="tab-icon">💰</span>
+                        <span class="hidden sm:inline">Budget & Data</span>
                     </button>
                     <button onclick="showTab('citizen')" class="tab-btn text-sm font-semibold flex items-center text-gray-700 hover:text-gov-blue whitespace-nowrap">
                         <span class="tab-icon">🤝</span>
@@ -4108,38 +4203,415 @@
 
         <!-- TAB: PROJECTIONS -->
         <section id="projections" class="tab-content hidden animate-fade-in">
-             <div class="mb-8">
-                <h2 class="text-4xl md:text-5xl font-black text-gov-blue mb-3 gradient-text">Data Modelling & Projections</h2>
-                <p class="text-gray-600 text-lg">Scientific modeling of emission reductions based on the implementation of the Master Plan.</p>
+            <div class="mb-8 text-center">
+                <h2 class="text-4xl md:text-5xl font-black text-gov-blue mb-3 gradient-text">💰 Budget & Financial Analytics</h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">Comprehensive fiscal analysis of Delhi's air pollution control budget (FY 2024-26) • Investment breakdown • Utilization rates • Economic impact projections</p>
             </div>
 
-            <div class="bounce-in shadow-lift glass-card modern-card depth-card p-8 rounded-2xl mb-8" style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0, 51, 102, 0.1);">
-                <h3 class="font-bold text-lg text-gov-blue mb-4">Annual Reduction of PM2.5 Load (Tonnes/Year)</h3>
-                <div class="chart-container">
-                    <canvas id="stackedChart"></canvas>
+            <!-- Executive Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="stagger-item glass-card modern-card depth-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                    <div class="text-5xl font-black text-blue-600 mb-2">₹1,885 Cr</div>
+                    <div class="text-sm text-gray-600 font-semibold">FY 2025-26 Allocation</div>
+                    <div class="text-xs text-green-600 mt-2">+31.5% from FY 2024-25</div>
                 </div>
-                <div class="mt-4 flex justify-center space-x-8 text-sm text-gray-600">
-                    <div class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>Transport</div>
-                    <div class="flex items-center"><span class="w-3 h-3 bg-orange-500 rounded-full mr-2"></span>Industry</div>
-                    <div class="flex items-center"><span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Dust</div>
-                    <div class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Biomass</div>
+                <div class="stagger-item glass-card modern-card depth-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                    <div class="text-5xl font-black text-red-600 mb-2">₹58,895 Cr</div>
+                    <div class="text-sm text-gray-600 font-semibold">Annual GDP Loss</div>
+                    <div class="text-xs text-red-600 mt-2">1.06-1.36% of GSDP</div>
+                </div>
+                <div class="stagger-item glass-card modern-card depth-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                    <div class="text-5xl font-black text-orange-600 mb-2">₹140 Cr</div>
+                    <div class="text-sm text-gray-600 font-semibold">EV Subsidy Backlog</div>
+                    <div class="text-xs text-orange-600 mt-2">Cleared in 2025</div>
+                </div>
+                <div class="stagger-item glass-card modern-card depth-card p-6 rounded-2xl text-center transform hover:scale-105 transition-all duration-300">
+                    <div class="text-5xl font-black text-purple-600 mb-2">17%</div>
+                    <div class="text-sm text-gray-600 font-semibold">NCAP Fund Usage</div>
+                    <div class="text-xs text-purple-600 mt-2">MCD 5-year record</div>
                 </div>
             </div>
-            
-            <div class="gradient-animate modern-card depth-card p-8 rounded-2xl shadow-2xl glass-card" style="background: linear-gradient(135deg, rgba(219, 234, 254, 0.9) 0%, rgba(167, 243, 208, 0.9) 50%, rgba(209, 250, 229, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.5);">
-                <h3 class="font-black text-blue-800 text-2xl mb-4">Benefits Assessment</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div class="stagger-item shadow-lift bg-white p-5 rounded-xl shadow-md glass-card">
-                        <div class="text-4xl font-black text-green-600 counter">5.8 Years</div>
-                        <div class="text-xs text-gray-500 uppercase font-bold mt-2">Increase in Life Expectancy</div>
+
+            <!-- Budget Breakdown Section -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-6 flex items-center">
+                    <span class="text-3xl mr-3">📊</span>
+                    FY 2025-26 Budget Breakdown (₹1,00,000 Crore Total)
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+                    <!-- Revenue Sources Chart -->
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800 mb-4">Revenue Sources (₹68,700 Cr)</h4>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                        <div class="mt-4 grid grid-cols-2 gap-3 text-sm">
+                            <div class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>GST & VAT (71%)</div>
+                            <div class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Stamp Duty (13%)</div>
+                            <div class="flex items-center"><span class="w-3 h-3 bg-orange-500 rounded-full mr-2"></span>Excise (10%)</div>
+                            <div class="flex items-center"><span class="w-3 h-3 bg-purple-500 rounded-full mr-2"></span>Motor Tax (6%)</div>
+                        </div>
                     </div>
-                    <div class="stagger-item shadow-lift bg-white p-5 rounded-xl shadow-md glass-card">
-                        <div class="text-4xl font-black text-blue-600 counter">₹12,000 Cr</div>
-                        <div class="text-xs text-gray-500 uppercase font-bold mt-2">Healthcare Savings/Year</div>
+
+                    <!-- Environment Budget Allocation -->
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800 mb-4">Environment Budget Distribution</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-semibold">Direct Air Control</span>
+                                    <span class="text-sm font-bold text-blue-600">₹750 Cr (40%)</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-blue-600 h-3 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-semibold">River Restoration</span>
+                                    <span class="text-sm font-bold text-green-600">₹565 Cr (30%)</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-green-600 h-3 rounded-full" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-semibold">Urban Greening</span>
+                                    <span class="text-sm font-bold text-emerald-600">₹377 Cr (20%)</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-emerald-600 h-3 rounded-full" style="width: 20%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-sm font-semibold">Solar Incentives</span>
+                                    <span class="text-sm font-bold text-yellow-600">₹193 Cr (10%)</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-yellow-600 h-3 rounded-full" style="width: 10%"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stagger-item shadow-lift bg-white p-5 rounded-xl shadow-md glass-card">
-                        <div class="text-4xl font-black text-purple-600 counter">-30%</div>
-                        <div class="text-xs text-gray-500 uppercase font-bold mt-2">Reduction in Carbon Emissions</div>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200">
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-blue-600">72%</div>
+                        <div class="text-xs text-gray-600">Revenue Expenditure</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-green-600">28%</div>
+                        <div class="text-xs text-gray-600">Capital Expenditure</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-orange-600">₹28,000 Cr</div>
+                        <div class="text-xs text-gray-600">Total CAPEX Budget</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-black text-purple-600">₹12,143 Cr</div>
+                        <div class="text-xs text-gray-600">Health Budget</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winter Action Plan Economics -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-6 flex items-center">
+                    <span class="text-3xl mr-3">❄️</span>
+                    Winter Action Plan: 25-Point Strategy Economics
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                        <div class="text-4xl mb-3">🚛</div>
+                        <div class="text-3xl font-black text-blue-700 mb-2">86</div>
+                        <div class="text-sm font-semibold text-gray-700 mb-1">Mechanical Sweepers</div>
+                        <div class="text-xs text-gray-600">₹50-70 lakh/unit • 24/7 operations</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-cyan-50 to-blue-50 p-6 rounded-xl border border-cyan-200">
+                        <div class="text-4xl mb-3">💦</div>
+                        <div class="text-3xl font-black text-cyan-700 mb-2">732</div>
+                        <div class="text-sm font-semibold text-gray-700 mb-1">Sprinklers & Anti-Smog Guns</div>
+                        <div class="text-xs text-gray-600">300 sprinklers + 432 guns deployed</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+                        <div class="text-4xl mb-3">👮</div>
+                        <div class="text-3xl font-black text-green-700 mb-2">1,021</div>
+                        <div class="text-sm font-semibold text-gray-700 mb-1">Enforcement Teams</div>
+                        <div class="text-xs text-gray-600">578 PUC + 443 waste burning squads</div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-sm font-semibold mb-1">Green War Room</div>
+                            <div class="text-lg">24x7 Command Center • 8 Environmental Experts • 24 Monitoring Stations</div>
+                        </div>
+                        <div class="text-5xl">🎯</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technology Investments: Cost-Benefit Analysis -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-6 flex items-center">
+                    <span class="text-3xl mr-3">🔬</span>
+                    Technology Investments: Cost-Benefit Analysis
+                </h3>
+                
+                <div class="space-y-4">
+                    <!-- Smog Towers -->
+                    <div class="border-l-4 border-red-500 bg-red-50 p-6 rounded-r-xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-red-800 mb-2">Smog Towers (2 Units)</h4>
+                                <div class="text-sm text-gray-700 space-y-1">
+                                    <div>• Capital Cost: <span class="font-bold">₹22.9 Cr (CP) + ₹18 Cr (Anand Vihar)</span></div>
+                                    <div>• Monthly OPEX: <span class="font-bold">₹10-12 lakh/unit</span></div>
+                                    <div>• Effectiveness Radius: <span class="font-bold text-red-600">200-400 meters only</span></div>
+                                    <div>• PM2.5 Reduction: <span class="font-bold text-red-600">13-20% (localized)</span></div>
+                                </div>
+                            </div>
+                            <div class="text-5xl">🏗️</div>
+                        </div>
+                        <div class="bg-red-100 p-3 rounded-lg text-sm text-red-800 font-semibold">
+                            ⚠️ ROI Assessment: Low efficiency vs high cost • ₹40+ Cr could fund 80+ electric buses
+                        </div>
+                    </div>
+
+                    <!-- Cloud Seeding -->
+                    <div class="border-l-4 border-orange-500 bg-orange-50 p-6 rounded-r-xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-orange-800 mb-2">Cloud Seeding Trials</h4>
+                                <div class="text-sm text-gray-700 space-y-1">
+                                    <div>• Trial Cost: <span class="font-bold">₹1.2 Cr (2 sorties)</span></div>
+                                    <div>• Full Season Estimate: <span class="font-bold">₹25-30 Cr (IIT Kanpur)</span></div>
+                                    <div>• Success Rate: <span class="font-bold text-orange-600">Weather-dependent</span></div>
+                                    <div>• Status: <span class="font-bold text-red-600">Deemed cost-ineffective</span></div>
+                                </div>
+                            </div>
+                            <div class="text-5xl">☁️</div>
+                        </div>
+                    </div>
+
+                    <!-- EV Policy (Success Story) -->
+                    <div class="border-l-4 border-green-500 bg-green-50 p-6 rounded-r-xl">
+                        <div class="flex items-start justify-between mb-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-green-800 mb-2">EV Policy (State EV Fund) ✅</h4>
+                                <div class="text-sm text-gray-700 space-y-1">
+                                    <div>• Funding Source: <span class="font-bold">₹0.25/liter diesel cess (50% to fund)</span></div>
+                                    <div>• Subsidies: <span class="font-bold">₹30,000 (2W) • ₹1.5 lakh (4W)</span></div>
+                                    <div>• EV Adoption Rate: <span class="font-bold text-green-600">12% (Delhi) vs 3% (National)</span></div>
+                                    <div>• Policy Extension: <span class="font-bold text-green-600">Till March 31, 2026</span></div>
+                                </div>
+                            </div>
+                            <div class="text-5xl">🔋</div>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-lg text-sm text-green-800 font-semibold">
+                            ✅ Success Model: Self-sustaining "polluter pays" mechanism • High adoption impact
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fund Utilization Crisis -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8 bg-gradient-to-br from-red-50 to-orange-50">
+                <h3 class="font-black text-2xl text-red-800 mb-6 flex items-center">
+                    <span class="text-3xl mr-3">⚠️</span>
+                    The Utilization Crisis: Unspent Environmental Funds
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-red-300">
+                        <div class="text-center mb-4">
+                            <div class="text-5xl font-black text-red-600">17%</div>
+                            <div class="text-sm text-gray-600 mt-2">MCD NCAP Utilization</div>
+                        </div>
+                        <div class="text-xs text-gray-700 space-y-2">
+                            <div>• FY 2023-24: ₹5.19 Cr of ₹35.31 Cr</div>
+                            <div>• FY 2024-25: ₹1.34 Cr of ₹30.11 Cr</div>
+                            <div class="text-red-600 font-bold">• 5-Year Record: Only 17% spent</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-orange-300">
+                        <div class="text-center mb-4">
+                            <div class="text-5xl font-black text-orange-600">31%</div>
+                            <div class="text-sm text-gray-600 mt-2">EPC Fund Utilization</div>
+                        </div>
+                        <div class="text-xs text-gray-700 space-y-2">
+                            <div>• Collected (2014-25): ₹427 Cr</div>
+                            <div>• Utilized: ₹130.9 Cr</div>
+                            <div class="text-orange-600 font-bold">• Unspent: ₹296 Cr sitting idle</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-yellow-300">
+                        <div class="text-center mb-4">
+                            <div class="text-5xl font-black text-yellow-600">0.2%</div>
+                            <div class="text-sm text-gray-600 mt-2">CPCB EC Utilization</div>
+                        </div>
+                        <div class="text-xs text-gray-700 space-y-2">
+                            <div>• Collected (2018-24): ₹45.81 Cr</div>
+                            <div>• Utilized: ₹9 lakh</div>
+                            <div class="text-yellow-600 font-bold">• Crisis of capacity, not funds</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-100 border-l-4 border-red-600 p-4 rounded-r-lg">
+                    <p class="text-sm text-red-800"><strong>Policy Implication:</strong> MoEFCC mandates 75% utilization rate for 2025-26 NCAP grants • MCD received ZERO new allocation in FY 2024-25 due to poor absorption</p>
+                </div>
+            </div>
+
+            <!-- Economic Impact Projection -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-6 flex items-center">
+                    <span class="text-3xl mr-3">📈</span>
+                    Economic Impact & Projections (2024-2030)
+                </h3>
+                
+                <div class="chart-container mb-6" style="height: 350px;">
+                    <canvas id="economicImpactChart"></canvas>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Current Losses -->
+                    <div class="bg-gradient-to-br from-red-50 to-pink-50 p-6 rounded-xl border border-red-200">
+                        <h4 class="font-bold text-lg text-red-800 mb-4">Annual Economic Losses (Current)</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">GDP Erosion</span>
+                                <span class="text-lg font-bold text-red-600">₹58,895 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Healthcare Costs</span>
+                                <span class="text-lg font-bold text-red-600">₹18,000 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Productivity Loss</span>
+                                <span class="text-lg font-bold text-red-600">₹24,000 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Tourism Impact</span>
+                                <span class="text-lg font-bold text-red-600">₹8,000 Cr/year</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-red-300">
+                            <div class="text-sm text-gray-600">% of GSDP Lost</div>
+                            <div class="text-3xl font-black text-red-700">1.06% - 1.36%</div>
+                        </div>
+                    </div>
+
+                    <!-- Projected Savings -->
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
+                        <h4 class="font-bold text-lg text-green-800 mb-4">Projected Savings by 2030</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Healthcare Savings</span>
+                                <span class="text-lg font-bold text-green-600">₹12,000 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Productivity Gains</span>
+                                <span class="text-lg font-bold text-green-600">₹15,000 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Tourism Revival</span>
+                                <span class="text-lg font-bold text-green-600">₹6,000 Cr/year</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-700">Life Expectancy Gain</span>
+                                <span class="text-lg font-bold text-green-600">5.8 years</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-green-300">
+                            <div class="text-sm text-gray-600">Total Annual Benefit</div>
+                            <div class="text-3xl font-black text-green-700">₹33,000+ Cr</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sectoral Investment vs Pollution Contribution -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-6 flex items-center">
+                    <span class="text-3xl mr-3">⚖️</span>
+                    Allocation Alignment: Investment vs Source Contribution
+                </h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-center">Pollution Source Contribution</h4>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="sourceContributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-center">Budget Allocation by Sector</h4>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="budgetAllocationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-600 p-4 rounded-r-lg">
+                    <p class="text-sm text-yellow-900"><strong>Misalignment Alert:</strong> Road dust contributes 38% of pollution but receives disproportionately low funding • Smog towers consume high budget for <1% spatial coverage • Reallocation needed for source-based interventions</p>
+                </div>
+            </div>
+
+            <!-- Annual Reduction Projections -->
+            <div class="glass-card modern-card depth-card p-8 rounded-2xl mb-8">
+                <h3 class="font-black text-2xl text-gov-blue mb-4">Annual PM2.5 Load Reduction Trajectory</h3>
+                <div class="chart-container" style="height: 350px;">
+                    <canvas id="stackedChart"></canvas>
+                </div>
+                <div class="mt-4 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+                    <div class="flex items-center"><span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>Transport Sector</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-orange-500 rounded-full mr-2"></span>Industrial Emissions</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Road & Construction Dust</div>
+                    <div class="flex items-center"><span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>Biomass Burning</div>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="gradient-animate modern-card depth-card p-8 rounded-2xl shadow-2xl" style="background: linear-gradient(135deg, rgba(219, 234, 254, 0.9) 0%, rgba(167, 243, 208, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.5);">
+                <h3 class="font-black text-blue-900 text-2xl mb-6">💡 Strategic Fiscal Insights</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white/80 backdrop-blur p-6 rounded-xl shadow-lg">
+                        <div class="text-4xl mb-3">✅</div>
+                        <h4 class="font-bold text-green-800 mb-2">What's Working</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li>• EV Policy: Self-sustaining feebate model, 12% adoption rate</li>
+                            <li>• Budget Growth: 31.5% increase shows political commitment</li>
+                            <li>• Revenue Surplus: ₹68,700 Cr allows fiscal space for expansion</li>
+                            <li>• Winter Action Plan: Comprehensive 25-point deployment</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white/80 backdrop-blur p-6 rounded-xl shadow-lg">
+                        <div class="text-4xl mb-3">⚠️</div>
+                        <h4 class="font-bold text-red-800 mb-2">Critical Failures</h4>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li>• Fund Absorption: Only 17-31% utilization rates across agencies</li>
+                            <li>• Misaligned Spending: High-tech low-impact vs source-based underfunding</li>
+                            <li>• Administrative Paralysis: ₹400+ Cr sitting idle in EPC/ECC funds</li>
+                            <li>• ROI Crisis: Investment doesn't match economic damage (3% vs 1.3% GDP loss)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-blue-900 text-white p-6 rounded-xl">
+                    <div class="text-center">
+                        <div class="text-sm font-semibold mb-2">Investment-to-Impact Ratio</div>
+                        <div class="text-5xl font-black mb-2">₹1 : ₹31</div>
+                        <div class="text-sm">Every rupee invested in pollution control saves ₹31 in economic losses</div>
                     </div>
                 </div>
             </div>
@@ -4256,59 +4728,76 @@
         // API Configuration for Real-time AQI Data
         const API_CONFIG = {
             // Using AQICN.org API (World Air Quality Index) - Free and reliable
-            endpoint: 'https://api.waqi.info/feed/delhi',
-            // Alternative API - no coordinates needed, uses city name
-            apiKey: 'demo' // Using demo token - works for major cities
+            // Specific Delhi monitoring stations for accurate readings
+            endpoints: [
+                'https://api.waqi.info/feed/@221',      // Delhi - US Embassy (Primary - Most reliable)
+                'https://api.waqi.info/feed/delhi',      // Delhi city average
+                'https://api.waqi.info/feed/@4937'       // Delhi - Anand Vihar (Backup)
+            ],
+            // Public API token for aqicn.org - register at https://aqicn.org/data-platform/token/
+            // Demo token works but has rate limits - recommended to get free personal token
+            apiKey: 'demo'
         };
 
-        // Fetch Real-time AQI Data
+        // Fetch Real-time AQI Data with multiple Delhi stations
         async function fetchRealTimeAQI() {
-            try {
-                const url = `${API_CONFIG.endpoint}/?token=${API_CONFIG.apiKey}`;
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.status === 'ok' && result.data) {
-                    const data = result.data;
-                    const aqi = data.aqi; // Already in standard AQI scale
+            // Try each endpoint in order until one succeeds
+            for (const endpoint of API_CONFIG.endpoints) {
+                try {
+                    const url = `${endpoint}/?token=${API_CONFIG.apiKey}`;
+                    const response = await fetch(url);
                     
-                    // Get PM2.5 value if available
-                    let pm25 = 0;
-                    if (data.iaqi && data.iaqi.pm25) {
-                        pm25 = data.iaqi.pm25.v;
-                    } else if (data.iaqi && data.iaqi.pm10) {
-                        // Estimate PM2.5 from PM10 if PM2.5 not available
-                        pm25 = Math.round(data.iaqi.pm10.v * 0.5);
-                    } else {
-                        // Calculate approximate PM2.5 from AQI
-                        pm25 = calculatePM25FromAQI(aqi);
+                    if (!response.ok) {
+                        console.warn(`API endpoint ${endpoint} returned status ${response.status}, trying next...`);
+                        continue;
                     }
                     
-                    // Update UI with real data
-                    updateAQIDisplay(aqi, Math.round(pm25));
+                    const result = await response.json();
                     
-                    console.log('✅ AQI data updated successfully:', { aqi, pm25: Math.round(pm25), time: data.time.s });
-                    
-                    // Schedule next update in 30 minutes (API updates hourly)
-                    setTimeout(fetchRealTimeAQI, 1800000);
-                } else if (result.status === 'error') {
-                    console.warn('API returned error:', result.data);
-                    // Try fallback API
-                    fetchFallbackAQI();
-                } else {
-                    console.warn('Invalid API response format');
-                    updateAQIStatus('Using cached data');
+                    if (result.status === 'ok' && result.data) {
+                        const data = result.data;
+                        const aqi = data.aqi; // Already in standard AQI scale
+                        
+                        // Get PM2.5 value if available
+                        let pm25 = 0;
+                        if (data.iaqi && data.iaqi.pm25) {
+                            pm25 = data.iaqi.pm25.v;
+                        } else if (data.iaqi && data.iaqi.pm10) {
+                            // Estimate PM2.5 from PM10 if PM2.5 not available
+                            pm25 = Math.round(data.iaqi.pm10.v * 0.5);
+                        } else {
+                            // Calculate approximate PM2.5 from AQI
+                            pm25 = calculatePM25FromAQI(aqi);
+                        }
+                        
+                        // Update UI with real data
+                        updateAQIDisplay(aqi, Math.round(pm25));
+                        
+                        // Show station name if available
+                        const stationName = data.city?.name || 'Delhi';
+                        console.log('✅ AQI data updated successfully:', { 
+                            station: stationName,
+                            aqi, 
+                            pm25: Math.round(pm25), 
+                            time: data.time?.s || 'now' 
+                        });
+                        
+                        // Schedule next update in 30 minutes (API updates hourly)
+                        setTimeout(fetchRealTimeAQI, 1800000);
+                        return; // Success - exit function
+                    } else if (result.status === 'error') {
+                        console.warn(`API endpoint ${endpoint} returned error:`, result.data);
+                        continue; // Try next endpoint
+                    }
+                } catch (error) {
+                    console.warn(`Error with endpoint ${endpoint}:`, error.message);
+                    continue; // Try next endpoint
                 }
-            } catch (error) {
-                console.error('Error fetching AQI data:', error);
-                // Try fallback API
-                fetchFallbackAQI();
             }
+            
+            // All endpoints failed, try fallback API
+            console.warn('All WAQI endpoints failed, trying fallback...');
+            fetchFallbackAQI();
         }
         
         // Fallback API - AirVisual/IQAir
@@ -5245,6 +5734,172 @@
             }
 
             // 3. Stacked Bar Chart (Load Reduction)
+            // Initialize Budget & Economic Charts
+            const revenueChartCanvas = document.getElementById('revenueChart');
+            if (revenueChartCanvas) {
+                try {
+                    new Chart(revenueChartCanvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['GST & VAT', 'Stamp Duty', 'Excise', 'Motor Vehicle Tax'],
+                            datasets: [{
+                                data: [49000, 9000, 7000, 3700],
+                                backgroundColor: ['#3b82f6', '#22c55e', '#f97316', '#a855f7'],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.label + ': ₹' + context.parsed.toLocaleString('en-IN') + ' Cr';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Failed to initialize Revenue Chart:', error);
+                }
+            }
+
+            const economicImpactChart = document.getElementById('economicImpactChart');
+            if (economicImpactChart) {
+                try {
+                    new Chart(economicImpactChart, {
+                        type: 'line',
+                        data: {
+                            labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                            datasets: [
+                                {
+                                    label: 'Economic Loss (Current Trajectory)',
+                                    data: [58895, 61000, 63500, 66000, 68500, 71000, 73500],
+                                    borderColor: '#ef4444',
+                                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                                    borderWidth: 3,
+                                    fill: true,
+                                    tension: 0.4
+                                },
+                                {
+                                    label: 'Economic Loss (With Mission AQI 20)',
+                                    data: [58895, 55000, 48000, 38000, 28000, 18000, 10000],
+                                    borderColor: '#22c55e',
+                                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                    borderWidth: 3,
+                                    fill: true,
+                                    tension: 0.4
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'top'
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return context.dataset.label + ': ₹' + context.parsed.y.toLocaleString('en-IN') + ' Cr';
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Economic Loss (₹ Crores)'
+                                    },
+                                    ticks: {
+                                        callback: function(value) {
+                                            return '₹' + (value/1000).toFixed(0) + 'K Cr';
+                                        }
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Year'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Failed to initialize Economic Impact Chart:', error);
+                }
+            }
+
+            const sourceContributionChart = document.getElementById('sourceContributionChart');
+            if (sourceContributionChart) {
+                try {
+                    new Chart(sourceContributionChart, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Road Dust (38%)', 'Vehicles (28%)', 'Industry (24%)', 'Biomass (10%)'],
+                            datasets: [{
+                                data: [38, 28, 24, 10],
+                                backgroundColor: ['#eab308', '#3b82f6', '#f97316', '#22c55e'],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { font: { size: 11 } }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Failed to initialize Source Contribution Chart:', error);
+                }
+            }
+
+            const budgetAllocationChart = document.getElementById('budgetAllocationChart');
+            if (budgetAllocationChart) {
+                try {
+                    new Chart(budgetAllocationChart, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Transport (35%)', 'Industry (25%)', 'Dust Control (20%)', 'Greening (20%)'],
+                            datasets: [{
+                                data: [35, 25, 20, 20],
+                                backgroundColor: ['#3b82f6', '#f97316', '#eab308', '#22c55e'],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { font: { size: 11 } }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Failed to initialize Budget Allocation Chart:', error);
+                }
+            }
+
             const stackedChartCanvas = document.getElementById('stackedChart');
             if (stackedChartCanvas) {
                 try {
@@ -5356,21 +6011,76 @@
             }
         }, { passive: true });
         
-        // Mobile nav click handlers
+        // Mobile nav click handlers with enhanced transitions
         mobileNavItems.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
-                const targetId = item.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
+                const targetHref = item.getAttribute('href');
+                const targetId = targetHref ? targetHref.substring(1) : item.dataset.section;
                 
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
+                if (!targetId) return;
                 
-                if (navigator.vibrate) navigator.vibrate(10);
+                // Visual feedback - scale down animation
+                item.style.transform = 'scale(0.88)';
+                setTimeout(() => item.style.transform = '', 120);
+                
+                // Haptic feedback
+                if (navigator.vibrate) navigator.vibrate([10, 5, 10]);
+                
+                // Show loading transition
+                const transition = document.createElement('div');
+                transition.className = 'page-transition active';
+                transition.style.cssText = `
+                    position: fixed;
+                    top: 0; left: 0; right: 0; bottom: 0;
+                    background: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(22, 163, 74, 0.95));
+                    z-index: 9998;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    opacity: 0;
+                    transition: opacity 0.2s;
+                `;
+                transition.innerHTML = '<div style=\"width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.8s linear infinite;\"></div>';
+                document.body.appendChild(transition);
+                
+                setTimeout(() => transition.style.opacity = '1', 10);
+                
+                // Update active states
+                mobileNavItems.forEach(navItem => navItem.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Switch tab after short delay
+                setTimeout(() => {
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        // Hide all sections
+                        document.querySelectorAll('.tab-content').forEach(tab => {
+                            if (!tab.classList.contains('hidden')) {
+                                tab.classList.add('slide-out-left');
+                                setTimeout(() => {
+                                    tab.classList.add('hidden');
+                                    tab.classList.remove('slide-out-left');
+                                }, 200);
+                            }
+                        });
+                        
+                        // Show target section
+                        setTimeout(() => {
+                            targetSection.classList.remove('hidden');
+                            window.scrollTo({ top: 0, behavior: 'auto' });
+                            
+                            // Remove transition
+                            setTimeout(() => {
+                                transition.style.opacity = '0';
+                                setTimeout(() => transition.remove(), 200);
+                            }, 150);
+                        }, 250);
+                    } else {
+                        transition.style.opacity = '0';
+                        setTimeout(() => transition.remove(), 200);
+                    }
+                }, 180);
             });
         });
         
@@ -5501,23 +6211,54 @@
         });
         
         // Enhanced page transitions for tab switching
+        let currentTabIndex = 0;
         const originalShowTab = window.showTab;
+        
         window.showTab = function(tabId) {
-            // Add transition overlay
-            const transition = document.createElement('div');
-            transition.className = 'page-transition active';
-            document.body.appendChild(transition);
+            const tabs = document.querySelectorAll('.tab-content');
+            const newTab = document.getElementById(tabId);
+            const oldTab = document.querySelector('.tab-content.active');
+            
+            if (!newTab || newTab === oldTab) return;
+            
+            // Determine slide direction
+            const tabIds = Array.from(tabs).map(t => t.id);
+            const newIndex = tabIds.indexOf(tabId);
+            const oldIndex = tabIds.indexOf(oldTab?.id || '');
+            const slideLeft = newIndex > oldIndex;
+            
+            // Add exit animation to old tab
+            if (oldTab) {
+                oldTab.classList.add(slideLeft ? 'slide-left' : 'slide-right');
+                oldTab.style.opacity = '0';
+                setTimeout(() => {
+                    oldTab.classList.remove('active', 'slide-left', 'slide-right');
+                    oldTab.style.display = 'none';
+                }, 200);
+            }
+            
+            // Show new tab with entrance animation
+            setTimeout(() => {
+                if (typeof originalShowTab === 'function') {
+                    originalShowTab(tabId);
+                } else {
+                    // Fallback implementation
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.style.display = 'none';
+                    });
+                    newTab.style.display = 'block';
+                    setTimeout(() => {
+                        newTab.classList.add('active');
+                        newTab.style.opacity = '1';
+                        newTab.style.transform = 'translateX(0)';
+                    }, 10);
+                }
+                currentTabIndex = newIndex;
+            }, 100);
             
             // Haptic feedback
             if (navigator.vibrate) navigator.vibrate(10);
-            
-            setTimeout(() => {
-                originalShowTab(tabId);
-                setTimeout(() => {
-                    transition.classList.remove('active');
-                    setTimeout(() => transition.remove(), 300);
-                }, 50);
-            }, 150);
         };
         
         // Smooth scroll enhancement for mobile
