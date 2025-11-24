@@ -7,6 +7,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-title" content="Mission AQI 20">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <link rel="manifest" href="/manifest.json">
     <meta name="description" content="Mission AQI 20 - Government of NCT Delhi's comprehensive action plan to reduce air pollution and achieve AQI 20 by 2030. Real-time monitoring, strategic initiatives, and citizen participation.">
     <meta name="keywords" content="Delhi AQI, Air Quality Index, Mission AQI 20, Delhi Pollution, GNCTD, Air Quality Management">
     <meta name="author" content="Government of National Capital Territory of Delhi">
@@ -24,6 +28,11 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://api.waqi.info">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" as="style">
     
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,7 +71,8 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
     
     <style>
         /* CSS Variables for Theme */
@@ -2984,6 +2994,44 @@
         
         [data-theme="dark"] .mobile-menu-btn span {
             background: var(--text-primary);
+        }
+        
+        /* Mobile Grid Optimizations */
+        @media (max-width: 768px) {
+            /* Reduce animation complexity on mobile */
+            .mobile-optimized * {
+                animation-duration: 0.3s !important;
+                transition-duration: 0.2s !important;
+            }
+            
+            .mobile-optimized .shimmer::before,
+            .mobile-optimized .glass-card::before,
+            .mobile-optimized .aqi-box::before {
+                animation: none !important;
+            }
+            
+            /* Optimize transforms for mobile */
+            .mobile-optimized .card-hover:hover,
+            .mobile-optimized .aqi-box:hover {
+                transform: none !important;
+            }
+            
+            /* Simplify gradients on mobile */
+            .mobile-optimized .glass-card {
+                backdrop-filter: blur(8px) !important;
+                -webkit-backdrop-filter: blur(8px) !important;
+            }
+            
+            /* Reduce shadows on mobile */
+            .mobile-optimized .shadow-lift,
+            .mobile-optimized .depth-card {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            }
+            
+            /* Optimize grid layouts */
+            .grid {
+                gap: 1rem !important;
+            }
         }
         
         /* Mobile Grid Optimizations */
@@ -6768,6 +6816,149 @@
                 updateLevelDisplay();
             }
         });
+        
+        // Chart initialization with lazy loading
+        function initializeCharts() {
+            // Only initialize charts when they become visible
+            const chartContainers = document.querySelectorAll('.chart-container canvas');
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.dataset.initialized) {
+                        const chartId = entry.target.id;
+                        if (chartId === 'sourceDoughnut') {
+                            initSourceChart();
+                        } else if (chartId === 'trendLine') {
+                            initTrendChart();
+                        } else if (chartId === 'economicImpactChart') {
+                            initEconomicChart();
+                        }
+                        entry.target.dataset.initialized = 'true';
+                        chartObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '100px' });
+            
+            chartContainers.forEach(canvas => chartObserver.observe(canvas));
+        }
+        
+        function initSourceChart() {
+            const ctx = document.getElementById('sourceDoughnut');
+            if (!ctx) return;
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Vehicular', 'Industry', 'Dust', 'Biomass', 'Waste'],
+                    datasets: [{
+                        data: [32, 20, 18, 17, 13],
+                        backgroundColor: ['#ef4444', '#f59e0b', '#eab308', '#16a34a', '#06b6d4'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        }
+        
+        function initTrendChart() {
+            const ctx = document.getElementById('trendLine');
+            if (!ctx) return;
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                    datasets: [{
+                        label: 'AQI Projection',
+                        data: [352, 310, 240, 150, 85, 45, 20],
+                        borderColor: '#16a34a',
+                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+        
+        function initEconomicChart() {
+            const ctx = document.getElementById('economicImpactChart');
+            if (!ctx) return;
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                    datasets: [{
+                        label: 'Economic Loss (₹ Cr)',
+                        data: [58895, 52000, 42000, 28000, 18000, 8000, 2000],
+                        backgroundColor: '#ef4444'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+        
+        // Lazy Chart Initialization for better mobile performance
+        function initializeChartsLazy() {
+            const chartContainers = document.querySelectorAll('.chart-container canvas');
+            if (!chartContainers.length) return;
+            
+            const chartObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.dataset.initialized) {
+                        const chartId = entry.target.id;
+                        
+                        if (chartId === 'sourceDoughnut') {
+                            new Chart(entry.target, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Vehicular (32%)', 'Industry (20%)', 'Dust (18%)', 'Biomass (17%)', 'Waste (13%)'],
+                                    datasets: [{
+                                        data: [32, 20, 18, 17, 13],
+                                        backgroundColor: ['#ef4444', '#f59e0b', '#eab308', '#16a34a', '#06b6d4']
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: { legend: { position: 'bottom' } }
+                                }
+                            });
+                        } else if (chartId === 'trendLine') {
+                            new Chart(entry.target, {
+                                type: 'line',
+                                data: {
+                                    labels: ['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                                    datasets: [{
+                                        label: 'AQI',
+                                        data: [352, 310, 240, 150, 85, 45, 20],
+                                        borderColor: '#16a34a',
+                                        tension: 0.4
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false
+                                }
+                            });
+                        }
+                        
+                        entry.target.dataset.initialized = 'true';
+                        chartObserver.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '100px' });
+            
+            chartContainers.forEach(canvas => chartObserver.observe(canvas));
+        }
 
         // AQI Calculator Function
         function calculateAQI() {
@@ -6863,6 +7054,19 @@
         // Initialize theme before DOM loads
         initializeTheme();
         
+        // Register Service Worker for PWA capabilities
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('✅ SW registered:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('❌ SW registration failed:', error);
+                    });
+            });
+        }
+        
         // Listen for system theme changes
         globalThis.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
@@ -6891,8 +7095,32 @@
             // Initialize AQI display IMMEDIATELY with realistic data
             initializeAQIDisplay();
             
-            // Then fetch real-time AQI data from API (will update if successful)
-            fetchRealTimeAQI();
+            // Defer heavy operations for better mobile performance
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Mobile: Defer chart initialization
+                setTimeout(() => {
+                    if (typeof Chart !== 'undefined') {
+                        initializeChartsLazy();
+                    }
+                }, 1500);
+                
+                // Reduce animation complexity on mobile
+                document.body.classList.add('mobile-optimized');
+            } else {
+                // Desktop: Initialize charts after short delay
+                setTimeout(() => {
+                    if (typeof Chart !== 'undefined') {
+                        initializeChartsLazy();
+                    }
+                }, 500);
+            }
+            
+            // Fetch real-time AQI data after initial render (non-blocking)
+            setTimeout(() => {
+                fetchRealTimeAQI();
+            }, isMobile ? 200 : 100);
             
             // Counter animation for AQI statistics
             function animateCounter(element) {
